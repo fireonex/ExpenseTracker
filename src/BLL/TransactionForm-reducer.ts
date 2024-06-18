@@ -5,8 +5,9 @@ export type TransactionActionType = ReturnType<typeof setTransactionTypeAC>
     | ReturnType<typeof setAmountAC>
     | ReturnType<typeof setTransactionDateAC>
 
+
 export type TransactionStateType = {
-    id: number;
+    id: string;
     type: 'income' | 'expense';
     amount: number;
     category: CategoryType;
@@ -19,7 +20,7 @@ export type CategoryType = 'Food' | 'Clothes' | 'Bills' | 'Entertainment' | 'Hea
 
 
 let initialState: TransactionStateType = {
-    id: 1,
+    id: '1',
     type: 'expense',
     amount: 1000,
     category: 'Food',
@@ -56,6 +57,7 @@ export const setTransactionCategoryAC = (category: CategoryType) => ({
 export const setTransactionDateAC = (date: Date) => ({
     type: "SET-TRANSACTION-DATE", date
 }) as const;
+
 
 
 

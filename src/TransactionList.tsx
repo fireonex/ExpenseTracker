@@ -1,13 +1,21 @@
-import AddTransactionForm from "./AddTransactionForm";
-
+import {TransactionStateType} from "./BLL/TransactionForm-reducer";
+import {List, ListItem, ListItemText} from "@mui/material";
 
 type TransactionListPropsType = {
-
+    transactions: TransactionStateType[]
 }
 
-export function TransactionList({}: TransactionListPropsType) {
+export function TransactionList({transactions}: TransactionListPropsType) {
     return (
-        <div></div>
-        // <AddTransactionForm/>
+        <List>
+            {transactions.map((transaction) => (
+                <ListItem key={transaction.id}>
+                    <ListItemText
+                        primary={`${transaction.type === 'income' ? 'Доход' : 'Расход'}: ${transaction.amount} - ${transaction.category}`}
+                        secondary={transaction.date.toLocaleDateString()}
+                    />
+                </ListItem>
+            ))}
+        </List>
     )
 }

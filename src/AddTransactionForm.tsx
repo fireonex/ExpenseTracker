@@ -1,8 +1,9 @@
 import React from 'react';
-import {TextField, MenuItem, Button, FormControl, InputLabel, Select, SelectChangeEvent} from '@mui/material';
-import {makeStyles} from '@mui/styles';
-import {CategoryType} from "./BLL/TransactionForm-reducer";
-import {expenseCategories, incomeCategories} from "./utils/TransactionCategories";
+import { TextField, MenuItem, Button, FormControl, InputLabel, Select, SelectChangeEvent } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { CategoryType, TransactionStateType } from "./BLL/TransactionForm-reducer";
+import { expenseCategories, incomeCategories } from "./utils/TransactionCategories";
+import { v1 } from 'uuid';
 
 const useStyles = makeStyles({
     form: {
@@ -21,13 +22,13 @@ interface AddTransactionFormProps {
     type: 'income' | 'expense';
     amount: number | string;
     category: CategoryType;
-    date: Date;
+    date: Date | string;
     setTransactionType: (type: 'income' | 'expense') => void;
     setAmount: (amount: number) => void;
     setTransactionCategory: (category: CategoryType) => void;
     setTransactionDate: (date: Date) => void;
+    setHandleSubmit: (transaction: TransactionStateType) => void;
 }
-
 
 const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                                                                    type,
@@ -37,7 +38,8 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                                                                    setTransactionType,
                                                                    setAmount,
                                                                    setTransactionCategory,
-                                                                   setTransactionDate
+                                                                   setTransactionDate,
+                                                                   setHandleSubmit
                                                                }) => {
     const classes = useStyles();
 
@@ -60,8 +62,14 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // Handle form submission
-        console.log({type, amount, category, date});
+        const newTransaction: TransactionStateType = {
+            id: v1(),
+            type,
+            amount: Number(amount),
+            category,
+            date: new Date(date)
+        };
+        setHandleSubmit(newTransaction);
     };
 
     const categories = type === 'income' ? incomeCategories : expenseCategories;
@@ -108,7 +116,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                 label="Дата"
                 type="date"
                 fullWidth
-                value={date.toISOString().substring(0, 10)}
+                value={date instanceof Date ? date.toISOString().substring(0, 10) : new Date(date).toISOString().substring(0, 10)}
                 onChange={handleDateChange}
                 InputLabelProps={{
                     shrink: true,

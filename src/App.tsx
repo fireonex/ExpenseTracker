@@ -3,7 +3,7 @@ import {Container, CssBaseline, Typography} from '@mui/material';
 import TransactionFormContainer from "./TransactionFormContainer";
 import {useStyles} from "./utils/useStyles";
 import {CustomAppBar} from "./components/app/AppBar";
-import {AppDrawer} from "./components/app/AppDrawer";
+// import {AppDrawer} from "./components/app/AppDrawer";
 import {Footer} from "./components/app/Footer";
 
 
@@ -14,11 +14,11 @@ const App = () => {
         <div className={classes.root}>
             <CssBaseline/>
             <CustomAppBar/>
-            <AppDrawer/>
+            {/*<AppDrawer/>*/}
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
                 <Container>
-                    <Typography paragraph>
+                    <Typography paragraph>ade
                         <TransactionFormContainer/>
                     </Typography>
                 </Container>
