@@ -1,7 +1,8 @@
 import React from 'react';
-import { TextField, MenuItem, Button, FormControl, InputLabel, Select, SelectChangeEvent } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import {TextField, MenuItem, Button, FormControl, InputLabel, Select, SelectChangeEvent} from '@mui/material';
+import {makeStyles} from '@mui/styles';
 import {CategoryType} from "./BLL/TransactionForm-reducer";
+import {expenseCategories, incomeCategories} from "./utils/TransactionCategories";
 
 const useStyles = makeStyles({
     form: {
@@ -27,18 +28,6 @@ interface AddTransactionFormProps {
     setTransactionDate: (date: Date) => void;
 }
 
-const categories: CategoryType[] = ['Food', 'Clothes', 'Bills', 'Entertainment', 'Health', 'Hygiene', 'Minecraft', 'BadHabits'];
-
-const categoryLabels: { [key in CategoryType]: string } = {
-    Food: 'Еда',
-    Clothes: 'Одежда',
-    Bills: 'Счета',
-    Entertainment: 'Развлечения',
-    Health: 'Здоровье',
-    Hygiene: 'Гигиена',
-    Minecraft: 'Minecraft',
-    BadHabits: 'Вредные привычки'
-};
 
 const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                                                                    type,
@@ -54,6 +43,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
 
     const handleTypeChange = (event: SelectChangeEvent<'income' | 'expense'>) => {
         setTransactionType(event.target.value as 'income' | 'expense');
+        setTransactionCategory('' as CategoryType); // сброс категории при изменении типа
     };
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,8 +61,10 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Handle form submission
-        console.log({ type, amount, category, date });
+        console.log({type, amount, category, date});
     };
+
+    const categories = type === 'income' ? incomeCategories : expenseCategories;
 
     return (
         <form className={classes.form} onSubmit={handleSubmit}>
@@ -106,7 +98,7 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                 >
                     {categories.map((category) => (
                         <MenuItem key={category} value={category}>
-                            {categoryLabels[category]}
+                            {category}
                         </MenuItem>
                     ))}
                 </Select>
