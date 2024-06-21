@@ -7,12 +7,12 @@ export const CustomAppBar = () => {
     const classes = useStyles();
 
     return (
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="h6" noWrap>
-                        Expense Tracker
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        )
+        <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+                <Typography variant="h6" noWrap>
+                    Expense Tracker
+                </Typography>
+            </Toolbar>
+        </AppBar>
+    )
 }

@@ -1,22 +1,10 @@
 import React from 'react';
-import { TextField, MenuItem, Button, FormControl, InputLabel, Select, SelectChangeEvent } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material';
 import {CategoryType, TransactionStateType, TransactionsType} from "./BLL/TransactionForm-reducer";
-import { expenseCategories, incomeCategories } from "./utils/TransactionCategories";
-import { v1 } from 'uuid';
+import {expenseCategories, incomeCategories} from "./utils/TransactionCategories";
+import {v1} from 'uuid';
+import {useStyles} from "./utils/useStyles";
 
-const useStyles = makeStyles({
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        maxWidth: '400px',
-        margin: 'auto',
-        padding: '16px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-    },
-});
 
 interface AddTransactionFormProps {
     type: TransactionsType;
@@ -31,16 +19,16 @@ interface AddTransactionFormProps {
 }
 
 export const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
-                                                                   type,
-                                                                   amount,
-                                                                   category,
-                                                                   date,
-                                                                   setTransactionType,
-                                                                   setAmount,
-                                                                   setTransactionCategory,
-                                                                   setTransactionDate,
-                                                                   setHandleSubmit
-                                                               }) => {
+                                                                          type,
+                                                                          amount,
+                                                                          category,
+                                                                          date,
+                                                                          setTransactionType,
+                                                                          setAmount,
+                                                                          setTransactionCategory,
+                                                                          setTransactionDate,
+                                                                          setHandleSubmit
+                                                                      }) => {
     const classes = useStyles();
 
     const handleTypeChange = (event: SelectChangeEvent<TransactionsType>) => {
@@ -124,10 +112,9 @@ export const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                 required
             />
 
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" className={classes.button}>
                 Добавить транзакцию
             </Button>
         </form>
     );
 };
-
