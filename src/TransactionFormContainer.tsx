@@ -21,7 +21,7 @@ interface MapStatePropsType {
 
 interface MapDispatchPropsType {
     setTransactionType: (transactionType: TransactionsType) => void;
-    setAmount: (amount: number) => void;
+    setAmount: (amount: number | string) => void;
     setTransactionCategory: (category: CategoryType) => void;
     setTransactionDate: (date: Date) => void;
     submitTransaction: (transaction: TransactionStateType) => void;

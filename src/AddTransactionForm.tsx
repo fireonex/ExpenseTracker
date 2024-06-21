@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material';
-import {CategoryType, TransactionStateType, TransactionsType} from "./BLL/TransactionForm-reducer";
-import {expenseCategories, incomeCategories} from "./utils/TransactionCategories";
-import {v1} from 'uuid';
-import {useStyles} from "./utils/useStyles";
+import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { CategoryType, TransactionStateType, TransactionsType } from "./BLL/TransactionForm-reducer";
+import { expenseCategories, incomeCategories } from "./utils/TransactionCategories";
+import { v1 } from 'uuid';
+import { useStyles } from "./utils/useStyles";
 
 
 interface AddTransactionFormProps {
@@ -12,7 +12,7 @@ interface AddTransactionFormProps {
     category: CategoryType;
     date: Date | string;
     setTransactionType: (type: TransactionsType) => void;
-    setAmount: (amount: number) => void;
+    setAmount: (amount: number | string) => void; // Изменено на number | string
     setTransactionCategory: (category: CategoryType) => void;
     setTransactionDate: (date: Date) => void;
     setHandleSubmit: (transaction: TransactionStateType) => void;
@@ -37,7 +37,10 @@ export const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
     };
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAmount(Number(event.target.value));
+        const value = event.target.value;
+        if (value === '' || Number(value) >= 0) { // Проверка на отрицательные числа
+            setAmount(value === '' ? '' : Number(value)); // Устанавливаем пустую строку, если поле пустое
+        }
     };
 
     const handleCategoryChange = (event: SelectChangeEvent<CategoryType>) => {
