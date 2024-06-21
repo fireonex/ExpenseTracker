@@ -18,7 +18,7 @@ const App = () => {
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
                 <Container>
-                    <Typography paragraph>ade
+                    <Typography paragraph>
                         <TransactionFormContainer/>
                     </Typography>
                 </Container>

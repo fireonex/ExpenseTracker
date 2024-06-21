@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, MenuItem, Button, FormControl, InputLabel, Select, SelectChangeEvent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { CategoryType, TransactionStateType } from "./BLL/TransactionForm-reducer";
+import {CategoryType, TransactionStateType, TransactionsType} from "./BLL/TransactionForm-reducer";
 import { expenseCategories, incomeCategories } from "./utils/TransactionCategories";
 import { v1 } from 'uuid';
 
@@ -19,18 +19,18 @@ const useStyles = makeStyles({
 });
 
 interface AddTransactionFormProps {
-    type: 'income' | 'expense';
+    type: TransactionsType;
     amount: number | string;
     category: CategoryType;
     date: Date | string;
-    setTransactionType: (type: 'income' | 'expense') => void;
+    setTransactionType: (type: TransactionsType) => void;
     setAmount: (amount: number) => void;
     setTransactionCategory: (category: CategoryType) => void;
     setTransactionDate: (date: Date) => void;
     setHandleSubmit: (transaction: TransactionStateType) => void;
 }
 
-const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
+export const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                                                                    type,
                                                                    amount,
                                                                    category,
@@ -43,8 +43,8 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
                                                                }) => {
     const classes = useStyles();
 
-    const handleTypeChange = (event: SelectChangeEvent<'income' | 'expense'>) => {
-        setTransactionType(event.target.value as 'income' | 'expense');
+    const handleTypeChange = (event: SelectChangeEvent<TransactionsType>) => {
+        setTransactionType(event.target.value as TransactionsType);
         setTransactionCategory('' as CategoryType); // сброс категории при изменении типа
     };
 
@@ -131,4 +131,3 @@ const AddTransactionForm: React.FC<AddTransactionFormProps> = ({
     );
 };
 
-export default AddTransactionForm;

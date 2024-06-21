@@ -6,9 +6,11 @@ export type TransactionActionType = ReturnType<typeof setTransactionTypeAC>
     | ReturnType<typeof setTransactionDateAC>
 
 
+export type TransactionsType = 'income' | 'expense'
+
 export type TransactionStateType = {
     id: string;
-    type: 'income' | 'expense';
+    type: TransactionsType;
     amount: number;
     category: CategoryType;
     date: Date;
@@ -42,7 +44,7 @@ export const TransactionReducer = (state = initialState, action: TransactionActi
 }
 
 
-export const setTransactionTypeAC = (transactionType: 'income' | 'expense') => ({
+export const setTransactionTypeAC = (transactionType: TransactionsType) => ({
     type: "SET-TRANSACTION-TYPE", transactionType
 }) as const;
 

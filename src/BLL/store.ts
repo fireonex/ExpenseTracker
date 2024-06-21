@@ -1,34 +1,19 @@
 import {combineReducers, legacy_createStore, Store} from "redux";
-import {TransactionActionType, TransactionReducer, TransactionStateType} from "./TransactionForm-reducer";
-import {loadState, saveState} from "../utils/localstorage-utils";
-import {TransactionsReducer} from "./Transactions-reducer";
 
+import {TransactionReducer, TransactionStateType} from "./TransactionForm-reducer";
+import {TransactionsReducer, TransactionsStateType} from "./Transactions-reducer";
 
 export type rootStateType = {
-    transactionForm: TransactionStateType,
-    transactions: TransactionStateType[]
+    transactionForm: TransactionStateType;
+    transactions: TransactionsStateType;
 }
 
-export type actionType = TransactionActionType
-
-
-
-
-let rootReducer = combineReducers({
+const rootReducer = combineReducers({
     transactionForm: TransactionReducer,
     transactions: TransactionsReducer
 });
 
-export let store: Store<rootStateType, actionType> = legacy_createStore(rootReducer, loadState())
+export const store: Store<rootStateType> = legacy_createStore(rootReducer);
 
-store.subscribe(() => {
-    saveState({
-        transactionForm: store.getState().transactionForm,
-        transactions: store.getState().transactions
-    });
-});
-
-//@ts-ignore
-window.store = store
-
-
+// @ts-ignore
+window.store = store;
